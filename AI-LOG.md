@@ -15,3 +15,6 @@
     Fix: double check the spelling 
     What I learned: An automated test runs my function with known input and checks its output. Dictionary kets mnust match exactly.
 03/10 - Added exact-name and second-alternative-name tests with AI guidance. Ran all 3 test successful
+03/10 - 8 Tests passed
+    Help used: guidance on adding tests for search behaviour, invalid input, and edge case
+
