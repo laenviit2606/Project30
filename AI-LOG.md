@@ -17,4 +17,6 @@
 03/10 - Added exact-name and second-alternative-name tests with AI guidance. Ran all 3 test successful
 03/10 - 8 Tests passed
     Help used: guidance on adding tests for search behaviour, invalid input, and edge case
+03/10 - AI guidance to create an HTML search form
+    Help used: preview the web successfully 
 
