@@ -25,3 +25,5 @@
 04/10 - Website views, statistics, and styling
     Help used; Guidance on adding Search, insights/ About/ navigation links/ alternative-name statistics/ shared CSS stylesheet
     What I learned: Flask routes connect URLs to Python functions. Python passed calculated values to HTML templates. 
+04/10 - Add 6 website tests 
+    Help used: Guidance for website tests
