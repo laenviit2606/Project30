@@ -19,4 +19,6 @@
     Help used: guidance on adding tests for search behaviour, invalid input, and edge case
 03/10 - AI guidance to create an HTML search form
     Help used: preview the web successfully 
-
+04/10 - Connect the website to Python
+    Help used: installing Flask, creating app.py/ import find_language from Main.py/ display search results in an HTML template
+    What I learned: Form sends "the search" using a parameter named q. Flask reads it => pass result to index.html. Each form submission sends - new request => website doesn't need terminal input loop
