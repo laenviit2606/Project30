@@ -33,5 +33,31 @@ def home():
         search_text=search_text
     )
 
+@app.route("/insights")
+def insights():
+    total_records = len(records)
+    records_with_alternatives = 0
+
+    for record in records:
+        alternatives = record["language_synonym"].strip()
+
+        if alternatives: 
+            records_with_alternatives += 1
+    records_without_alternatives = total_records - records_with_alternatives
+
+    if total_records > 0:
+        percentage = records_with_alternatives / total_records * 100
+    else:
+        percentage = 0
+    return render_template (
+        "insights.html",
+        total_records=total_records,
+        with_alternatives=records_with_alternatives,
+        without_alternatives=records_without_alternatives,
+        percentage=round(percentage, 1)
+    )
+@app.route("/about")
+def about():
+    return render_template("about.html")
 if __name__ == "__main__":
     app.run(port=5001) #Start a local development server on port 5001. Access the website at http://localhost:5001

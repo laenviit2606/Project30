@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewpoint" content ="width=devide-width, inittial-scale=1">
+    <title>Dataset Insight</title>
+</head>
+<body>
+    <nav>
+        <a href="/">Search</a> |
+        <a href="/insights">Insights</a> |
+        <a href="/about">About</a> |
+    </nav>
+
+    <h1> Dataset Insights</h1>
+    <p>These statistics describe records in CSV</p>
+
+    <h2> Alternative-name coverage</h2>
+
+    <p>Total records: {{total_records}}</p>
+    <p>With alternative names: {{with_alternatives}}</p>
+    <p>Without alternative names: {{without_alternatives}}</p>
+
+    <label for="coverage">
+        Records with alternative names: {{percentage}}%
+    </label>
+
+    <meter id="coverage" min="0" max="100" value="{{percentage}}">
+        {{ percentage }}%
+    </meter>
+
+    <h2>What does this mean?</h2>
+    <p>
+        Alternative-name searching can help users find the records through different published names or speelings
+        {{without_alternatives}} records have no alternative names
+        supplied in this CSV, so users must find them by code or main name. 
+    </p>
+
+    <p>
+        An empty field does not prove that a language has no alternative names.
+        It only means none are supplied in this dataset field.
+    </p>
+</body>
+</html>

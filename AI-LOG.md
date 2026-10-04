@@ -22,3 +22,6 @@
 04/10 - Connect the website to Python
     Help used: installing Flask, creating app.py/ import find_language from Main.py/ display search results in an HTML template
     What I learned: Form sends "the search" using a parameter named q. Flask reads it => pass result to index.html. Each form submission sends - new request => website doesn't need terminal input loop
+04/10 - Website views, statistics, and styling
+    Help used; Guidance on adding Search, insights/ About/ navigation links/ alternative-name statistics/ shared CSS stylesheet
+    What I learned: Flask routes connect URLs to Python functions. Python passed calculated values to HTML templates. 

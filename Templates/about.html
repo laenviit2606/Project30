@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>About Language Explorer</title>
+</head>
+<body>
+    <nav>
+        <a href="/">Search</a> |
+        <a href="/insights">Insights</a> |
+        <a href="/about">About</a>
+    </nav>
+
+    <h1>About Language Explorer</h1>
+    <p>
+        This student project helps users find published AUSTLANG records
+        by code, main name, or alternative name.
+    </p>
+
+    <h2>Data source</h2>
+    <p>
+        Data is provided by the Australian Institute of Aboriginal
+        and Torres Strait Islander Studies (AIATSIS).
+    </p>
+    <p>
+        <a href="https://data.gov.au/data/dataset/austlang-dataset-001">
+            View the AUSTLANG dataset
+        </a>
+    </p>
+
+    <h2>Licence</h2>
+    <p>
+        The dataset is listed under
+        <a href="https://creativecommons.org/licenses/by/4.0/">
+            Creative Commons Attribution 4.0 International
+        </a>.
+        AIATSIS does not endorse this student project.
+    </p>
+
+    <h2>Data preparation and limitations</h2>
+    <p>
+        The program trims whitespace and compares uppercase copies of names.
+        It separates alternative names using the | character.
+        The original CSV is unchanged.
+    </p>
+    <p>
+        The search returns the first matching record.
+        Multiple records may share a name.
+        Record counts should not be interpreted as counts of distinct languages.
+    </p>
+    <p>
+        This application explores published records.
+        It does not generate translations or cultural explanations.
+    </p>
+</body>
+</html>
