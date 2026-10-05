@@ -26,8 +26,10 @@
         {% endif %}
         {% if result %}
             <h2>Search Results:</h2>
-            <p>Language Code: {{ result ["language_code"] }}</p>
+            <p>Language code: {{ result ["language_code"] }}</p>
             <p>Language name: {{ result ["language_name"] }}</p>
+            <p>Link: {{ result ["uri"] }}</p>
+
         {% endif %} 
 </body>
 </html>
