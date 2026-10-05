@@ -27,3 +27,6 @@
     What I learned: Flask routes connect URLs to Python functions. Python passed calculated values to HTML templates. 
 04/10 - Add 6 website tests 
     Help used: Guidance for website tests
+05/10 - README and ARCHITECTURE documentation
+    Help received: Draft installation, usage, testing, data-source, limitation sections. Flask ended, search function, CSV, and HTML templates connect
+    What I learned: The README explains how to use and run the project + The architecture provides a diagram explains how its components interact
