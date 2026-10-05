@@ -41,7 +41,7 @@ def main():
             found_record = find_language(records, search_text)
             
             #Display the result
-            if found_record is not None:
+            if found_record:
                 print("Language code:", found_record["language_code"])
                 print("Language name:", found_record["language_name"])
 
