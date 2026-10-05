@@ -42,7 +42,7 @@ def main():
             
             #Display the result
             if found_record:
-                print("Language code:", found_record["language_code"])
+                print("Language code fuck:", found_record["language_code"])
                 print("Language name:", found_record["language_name"])
 
                 source_url = found_record["uri"].strip() #uri: gets the source link from the matching CSV record
