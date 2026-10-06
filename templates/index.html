@@ -81,7 +81,7 @@
                     </a>
                 {% endif %}
 
-                <span>Page {{ page }} of {{ total_page }}</span>
+                <span>Page {{ page }} of {{ total_pages }}</span>
 
                 {% if page < total_pages %}
                     <a href="{{url_for('home', letter=selected_letter, page=page+1, _anchor='browse') }}">
