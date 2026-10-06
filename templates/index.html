@@ -3,8 +3,12 @@
 <head> 
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1">  
+
     <title>Language Explorer</title> 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet" 
+        href="{{ url_for('static', filename='style.css') }}"
+    >
 </head>
 <body>
     <nav>
@@ -12,24 +16,68 @@
         <a href="/insights">Insights</a> 
         <a href="/about">About</a>
     </nav>
-    <h1>Language Explorer</h1>
-    <p> Find an AUSTLANG record by code, name, or alternative name.</p> 
 
-    <form action="/" method="get"> 
-        <label for="search">Language code or name:</label> 
-        <input type="text" id="search" name="q" value="{{ search_text }}" required> 
-        <button type="submit">Search</button> 
-    </form>
-    </> 
+    <main>
+        <h1>Language Explorer</h1>
+
+        <p>
+            Find an AUSTLANG record by code, name, or alternative name.
+        </p> 
+
+        <form action="/" method="get"> 
+            <label for="search">Language code or name:</label> 
+
+            <input 
+                type="text"
+                id="search" 
+                name="q" 
+                value="{{ search_text }}" 
+                placeholder="For example: C1 or Wirangu"
+                aria-describedby="search-help"
+                required> 
+            <p id="search-help">
+                    Try C1 or Wirangu. Enter a complete code, name, or alternative name.
+                    Capitalisation does not matter.
+            </p>
+
+            <button type="submit">Search</button> 
+        </form>
+
         {% if message%}
             <p>{{ message }}</p>
         {% endif %}
         {% if result %}
-            <h2>Search Results:</h2>
-            <p>Language code: {{ result ["language_code"] }}</p>
-            <p>Language name: {{ result ["language_name"] }}</p>
-            <p>Link: {{ result ["uri"] }}</p>
+            <section aria-labelledby="result-heading">
+                <h2 id="result-heading">Search result </h2>
+                <p>Language code: {{ result ["language_code"] }}</p>
+                <p>Language name: {{ result ["language_name"] }}</p>
+                
+                <h3>Alternative names</h3>
 
+                {%if result["language_synonym"].strip() %}
+                    <p> 
+                        {{ result["language_synonym"].replace("|", "; ")
+                    }}
+                    </p>
+                {% else %}
+                    <p>No alternative names supplied in this dataset.</p>
+                {% endif %}
+
+                <h3>Original <source></h3>
+
+                <p>
+                    <a
+                    href="https://collection.aiatsis.gov.au/austlang/language/{{ result['language_code']|lower|urlencode }}">
+                    Read the AIATSIS record ->
+                    </a>
+                </p>
+
+                <p>
+                    This search displays the first matching record.
+                    Multiple records may share a name.
+                </p>
+            </section>
         {% endif %} 
+    </main>
 </body>
 </html>
