@@ -61,7 +61,7 @@
                                 <td>{{ record["language_name"] }}</td>
                                 <td>{{ record["language_code"] }}</td>
                                 <td>
-                                    <a href="{{url_for('home', q record['language_code'], letter=selected_letter, page=page) }}">
+                                    <a href="{{ url_for('home', q=record['language_code'], letter=selected_letter, page=page) }}">
                                         View record
                                         <span class="visually-hidden">
                                             {{ record["language_code"] }}
