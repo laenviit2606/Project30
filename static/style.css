@@ -103,3 +103,70 @@ meter {
         width: 100%;
     }
 }
+
+/* Separate browsing from search */
+#browse {
+    margin-top: 40px;
+}
+
+/* Letter buttons */
+.letter-list {
+    gap: 8px;
+    border-bottom: none;
+}
+
+.letter-list a {
+    padding: 6px 12px;
+    border: 1px solid #718078;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.letter-list a[aria-current="true"] {
+    background-color: #245c4f;
+    color: white;
+}
+
+/* Allow the table to scroll on narrow screens */
+.table-scroll {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+caption {
+    text-align: left;
+    padding: 12px 0;
+}
+
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid #c6cec8;
+    text-align: left;
+}
+
+th {
+    background-color: #e6ece7;
+}
+
+.pagination {
+    margin-top: 20px;
+    border-bottom: none;
+}
+
+/* Extra link context for screen-reader users */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}

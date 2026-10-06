@@ -25,12 +25,73 @@ def home():
 
             if result is None:
                 message = "No matching language found. Please try again."
+    #Find the starting letters available in the dataset
+    available_letters = set() #A set stores uniques values. If 100 names with "A", we only need one "A" button
 
+    for record in records:
+        name = record["language_name"].strip()
+
+        if name: #Skip empty names
+            available_letters.add(name[0].upper()) #name[0]: takes the first character - .add(): puts into the set
+    letters = sorted(available_letters) #Turn the set into a sorted list - ["A", "B". "C"]
+    
+    #Determine which letter the visitor selected
+    #Use the selected letter, or the first available letter
+    default_letter = letters[0] if letters else "" #If there are no letters, use an empty string
+    
+    selected_letter = request.args.get("letter", default_letter).upper()
+
+    if selected_letter not in available_letters: 
+        selected_letter = default_letter
+    #Hadnles invalid value in the URL - by return the default group
+
+    #Collect records beginning with the selected letter
+    matching_records = []
+    #Creates an empty list to hold the matching records.
+    for record in records:
+        name = record["language_name"].strip()
+
+        if name and name[0].upper() == selected_letter:
+            matching_records.append(record)
+    #For each record, Python checks - Does its name exist - Does it start with the selected letter
+    #If yes ".append(record)" => adds the whole record to the list
+
+    #Sort the selected records by name, then code
+    matching_records = sorted(
+        matching_records,
+        key=lambda record: (
+            record["language_name"].strip().casefold(),
+            record["language_code"]
+        )
+    )
+    #sorted(): creates an ordered list - key: tells it what to sort by (Name/ Code)
+    #lambda record: short function - supplies sorting value for each record
+    #Case-fold: makes the name comparison case-insensitive - avoids separating names because of capitalisation
+
+    #Show 20 records per page
+    page_size = 20
+    total_matches = len(matching_records)
+    total_pages = max(1, (total_matches + page_size -1) // page_size) #Show 20 records at a time and count how many records mnatch the letter
+    #"//": performs whole-number division => Keeps the page count at least one, including when the dataset is empty
+
+    page = request.args.get("page", default=1, type=int) #Reads the page number from the URL and converts -> integer
+    page = max(1, min(page, total_pages)) #Keep the number in the valid range
+
+    start = (page -1) * page_size
+    browse_records = matching_records[start:start + page_size]
+    
     return render_template( #Fills the HTML template with the result and feedback
         "index.html",
         result=result,
         message=message,
-        search_text=search_text
+        search_text=search_text,
+        total_records=len(records),
+        letters=letters,
+        selected_letter=selected_letter,
+        browse_records=browse_records,
+        total_matches=total_matches,
+        page=page,
+        total_pages=total_pages
     )
 
 @app.route("/insights")

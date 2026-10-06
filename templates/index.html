@@ -16,13 +16,97 @@
         <a href="/insights">Insights</a> 
         <a href="/about">About</a>
     </nav>
+    <section id="browse" aria-labelledby="browse-heading">
+        <h2 id="browse-heading">Browse by language name</h2>
+        <p>
+            Choose a starting letter, then select a record.
+            Names are listed alphabetically.
+        </p>
 
+        <nav class="letter-list" aria-label="Starting letter">
+            {% for letter in letters %}
+                <a
+                    href="{{ url_for('home', letter=letter, _anchor='browse') }}"
+                    {% if letter == selected_letter %}
+                        aria-current="true"
+                    {% endif %}
+                >
+                    {{ letter }}
+                </a>
+            {% endfor %}
+        </nav>
+
+        {% if browse_records %}
+            <h3>Names beginning with {{ selected_letter }}</h3>
+            <p>{{ total_matches }} records in this group.</p>
+
+            <div class="table-scroll">
+                <table>
+                    <caption>
+                        Language records - page {{ page }}
+                        of {{ total_pages }}
+                    </caption>
+
+                    <thread>
+                        <tr>
+                            <th scope="col">Language name</th>
+                            <th scope="col">Code</th>
+                            <th scope="col">Details</th>
+                        </tr>
+                    </thread>
+
+                    <tbody>
+                        {% for record in browse_records %}
+                            <tr>
+                                <td>{{ record["language_name"] }}</td>
+                                <td>{{ record["language_code"] }}</td>
+                                <td>
+                                    <a href="{{url_for('home', q record['language_code'], letter=selected_letter, page=page) }}">
+                                        View record
+                                        <span class="visually-hidden">
+                                            {{ record["language_code"] }}
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <nav class="pagination" aria-label="Browse pages">
+                {% if page > 1 %}
+                    <a href="{{ url_for('home', letter=selected_letter, page=page-1, _anchor='browse') }}">
+                        Previous
+                    </a>
+                {% endif %}
+
+                <span>Page {{ page }} of {{ total_page }}</span>
+
+                {% if page < total_pages %}
+                    <a href="{{url_for('home', letter=selected_letter, page=page+1, _anchor='browse') }}">
+                        Next
+                    </a>
+                {% endif %}
+            </nav>
+        {% else %}
+            <p>No records are available to browse.</p>
+        {% endif %}
+    </section>
     <main>
         <h1>Language Explorer</h1>
 
         <p>
-            Find an AUSTLANG record by code, name, or alternative name.
-        </p> 
+            Explore {{ total_records }} AUSTLANG records about
+            Aboriginal and Torres Strait Islander languages
+            and languages varieties
+        </p>
+
+        <p>
+            Know a name or code? Search below.
+            Not sure where to start?
+            <a href="#browse"> Browse by language name</a>
+        </p>
 
         <form action="/" method="get"> 
             <label for="search">Language code or name:</label> 
@@ -68,7 +152,7 @@
                 <p>
                     <a
                     href="https://collection.aiatsis.gov.au/austlang/language/{{ result['language_code']|lower|urlencode }}">
-                    Read the AIATSIS record. Click me! 
+                    Read the AIATSIS record. Click me to explore!!!
                     </a>
                 </p>
 
