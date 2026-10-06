@@ -1,158 +1,91 @@
-<!DOCTYPE html> 
-<html lang="en"> 
-<head> 
-    <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1">  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Language Explorer</title> 
+    <title>Language Explorer</title>
 
-    <link rel="stylesheet" 
+    <link
+        rel="stylesheet"
         href="{{ url_for('static', filename='style.css') }}"
     >
 </head>
+
 <body>
-    <nav>
-        <a href="/">Search</a> 
-        <a href="/insights">Insights</a> 
+    <!-- Main website navigation -->
+    <nav aria-label="Main navigation">
+        <a href="/" aria-current="page">Search</a>
+        <a href="/insights">Insights</a>
         <a href="/about">About</a>
     </nav>
-    <section id="browse" aria-labelledby="browse-heading">
-        <h2 id="browse-heading">Browse by language name</h2>
-        <p>
-            Choose a starting letter, then select a record.
-            Names are listed alphabetically.
-        </p>
 
-        <nav class="letter-list" aria-label="Starting letter">
-            {% for letter in letters %}
-                <a
-                    href="{{ url_for('home', letter=letter, _anchor='browse') }}"
-                    {% if letter == selected_letter %}
-                        aria-current="true"
-                    {% endif %}
-                >
-                    {{ letter }}
-                </a>
-            {% endfor %}
-        </nav>
-
-        {% if browse_records %}
-            <h3>Names beginning with {{ selected_letter }}</h3>
-            <p>{{ total_matches }} records in this group.</p>
-
-            <div class="table-scroll">
-                <table>
-                    <caption>
-                        Language records - page {{ page }}
-                        of {{ total_pages }}
-                    </caption>
-
-                    <thread>
-                        <tr>
-                            <th scope="col">Language name</th>
-                            <th scope="col">Code</th>
-                            <th scope="col">Details</th>
-                        </tr>
-                    </thread>
-
-                    <tbody>
-                        {% for record in browse_records %}
-                            <tr>
-                                <td>{{ record["language_name"] }}</td>
-                                <td>{{ record["language_code"] }}</td>
-                                <td>
-                                    <a href="{{ url_for('home', q=record['language_code'], letter=selected_letter, page=page) }}">
-                                        View record
-                                        <span class="visually-hidden">
-                                            {{ record["language_code"] }}
-                                        </span>
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-
-            <nav class="pagination" aria-label="Browse pages">
-                {% if page > 1 %}
-                    <a href="{{ url_for('home', letter=selected_letter, page=page-1, _anchor='browse') }}">
-                        Previous
-                    </a>
-                {% endif %}
-
-                <span>Page {{ page }} of {{ total_pages }}</span>
-
-                {% if page < total_pages %}
-                    <a href="{{url_for('home', letter=selected_letter, page=page+1, _anchor='browse') }}">
-                        Next
-                    </a>
-                {% endif %}
-            </nav>
-        {% else %}
-            <p>No records are available to browse.</p>
-        {% endif %}
-    </section>
     <main>
+        <!-- Introduction -->
         <h1>Language Explorer</h1>
 
         <p>
             Explore {{ total_records }} AUSTLANG records about
             Aboriginal and Torres Strait Islander languages
-            and languages varieties
+            and language varieties.
         </p>
 
         <p>
             Know a name or code? Search below.
             Not sure where to start?
-            <a href="#browse"> Browse by language name</a>
+            <a href="#browse">Browse by language name</a>.
         </p>
 
-        <form action="/" method="get"> 
-            <label for="search">Language code or name:</label> 
+        <!-- Search form -->
+        <form action="/" method="get">
+            <label for="search">Language code or name:</label>
 
-            <input 
+            <input
                 type="text"
-                id="search" 
-                name="q" 
-                value="{{ search_text }}" 
+                id="search"
+                name="q"
+                value="{{ search_text }}"
                 placeholder="For example: C1 or Wirangu"
                 aria-describedby="search-help"
-                required> 
+                required
+            >
+
             <p id="search-help">
-                    Try C1 or Wirangu. Enter a complete code, name, or alternative name.
-                    Capitalisation does not matter.
+                Enter a complete code, name, or alternative name.
+                Capitalisation does not matter.
             </p>
 
-            <button type="submit">Search</button> 
+            <button type="submit">Search</button>
         </form>
 
-        {% if message%}
+        <!-- Feedback for blank or unsuccessful searches -->
+        {% if message %}
             <p>{{ message }}</p>
         {% endif %}
+
+        <!-- Display these details only when a record is found -->
         {% if result %}
             <section aria-labelledby="result-heading">
-                <h2 id="result-heading">Search result </h2>
-                <p>Language code: {{ result ["language_code"] }}</p>
-                <p>Language name: {{ result ["language_name"] }}</p>
-                
+                <h2 id="result-heading">Search result</h2>
+
+                <p>Language code: {{ result["language_code"] }}</p>
+                <p>Language name: {{ result["language_name"] }}</p>
+
                 <h3>Alternative names</h3>
 
-                {%if result["language_synonym"].strip() %}
-                    <p> 
-                        {{ result["language_synonym"].replace("|", "; ")
-                    }}
+                {% if result["language_synonym"].strip() %}
+                    <p>
+                        {{ result["language_synonym"].replace("|", "; ") }}
                     </p>
                 {% else %}
                     <p>No alternative names supplied in this dataset.</p>
                 {% endif %}
 
-                <h3>Original <source></h3>
+                <h3>Original source</h3>
 
                 <p>
-                    <a
-                    href="https://collection.aiatsis.gov.au/austlang/language/{{ result['language_code']|lower|urlencode }}">
-                    Read the AIATSIS record. Click me to explore!!!
+                    <a href="https://collection.aiatsis.gov.au/austlang/language/{{ result['language_code']|lower|urlencode }}">
+                        Read the AIATSIS record →
                     </a>
                 </p>
 
@@ -161,7 +94,92 @@
                     Multiple records may share a name.
                 </p>
             </section>
-        {% endif %} 
+        {% endif %}
+
+        <!-- Browsing stays available before and after searching -->
+        <section id="browse" aria-labelledby="browse-heading">
+            <h1 id="browse-heading">Browse by language name</h1>
+
+            <p>
+                Choose a starting letter, then select a record.
+                Names are listed alphabetically.
+            </p>
+
+            <!-- Starting-letter links -->
+            <nav class="letter-list" aria-label="Starting letter">
+                {% for letter in letters %}
+                    <a
+                        href="{{ url_for('home', letter=letter, _anchor='browse') }}"
+                        {% if letter == selected_letter %}
+                            aria-current="true"
+                        {% endif %}
+                    >
+                        {{ letter }}
+                    </a>
+                {% endfor %}
+            </nav>
+
+            {% if browse_records %}
+                <h2>Names beginning with {{ selected_letter }}</h2>
+
+                <p>{{ total_matches }} records in this group.</p>
+
+                <!-- Records on the current page -->
+                <div class="table-scroll">
+                    <table>
+                        <caption>
+                            Language records — page {{ page }}
+                            of {{ total_pages }}
+                        </caption>
+
+                        <thead>
+                            <tr>
+                                <th scope="col">Language name</th>
+                                <th scope="col">Code</th>
+                                <th scope="col">Details</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for record in browse_records %}
+                                <tr>
+                                    <td>{{ record["language_name"] }}</td>
+                                    <td>{{ record["language_code"] }}</td>
+                                    <td>
+                                        <a href="{{ url_for('home', q=record['language_code'], letter=selected_letter, page=page, _anchor='result-heading') }}">
+                                            View record
+                                            <span class="visually-hidden">
+                                                {{ record["language_code"] }}
+                                            </span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Previous and next pages -->
+                <nav class="pagination" aria-label="Browse pages">
+                    {% if page > 1 %}
+                        <a href="{{ url_for('home', letter=selected_letter, page=page-1, _anchor='browse') }}">
+                            ← Previous
+                        </a>
+                    {% endif %}
+
+                    <span>Page {{ page }} of {{ total_pages }}</span>
+
+                    {% if page < total_pages %}
+                        <a href="{{ url_for('home', letter=selected_letter, page=page+1, _anchor='browse') }}">
+                            Next →
+                        </a>
+                    {% endif %}
+                </nav>
+
+            {% else %}
+                <p>No records are available to browse.</p>
+            {% endif %}
+        </section>
     </main>
 </body>
 </html>
