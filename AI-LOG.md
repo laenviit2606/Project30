@@ -30,3 +30,8 @@
 05/10 - README and ARCHITECTURE documentation
     Help received: Draft installation, usage, testing, data-source, limitation sections. Flask ended, search function, CSV, and HTML templates connect
     What I learned: The README explains how to use and run the project + The architecture provides a diagram explains how its components interact
+06/10 - Alphebetical browsing and pagination
+    My request: Improve the homepage so visiotrs can explore records without already knowing a language name or code.
+    Help received: Example Python/ HTML/ CSS for an introduction + starting letter links, alphabetical record lists/ pagination/ clickable records/ Also explained how the code works
+    Design decision: keep exact-match search + add browsing bhy the 1st character of each language name, displayin 20 records per page.
+    What I learned: a set collects unique starting characters - Python filters/ sorts records - HTML template loops display links and rows, while CSS styles them
