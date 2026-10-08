@@ -23,7 +23,7 @@ flowchart TD
 - HTML templates displat the supplied values
 - 1 CSS file provides consistent styling
 
-## Search algorith
+## Search algorithm
 1. Trim the query + convert into uppercase.
 2. Return "None" if the query is blank
 3. Examine each record in CSV order
