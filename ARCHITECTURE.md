@@ -9,6 +9,7 @@ flowchart
     APP - gave Result/Feedback/Statistics => HTML templates
     HTML - Rendered page for USER
     CSS -> Static/style.css => Stylesheet requested by browser from USER
+```
 
 ##Components
 - Browser displays the pages and submits searches
