@@ -98,7 +98,7 @@ An empty alternative-name field means no alternatives are supplied in that field
 
 ## Deployment
 
-Public application URL: [add after deployment].
+Public application URL: https://project30-language-explorer.onrender.com 
 
 ## Contributors and AI assistance
 
